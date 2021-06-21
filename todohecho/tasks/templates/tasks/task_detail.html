@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block content %}
+<br>
+<div class="field is-grouped is-grouped-centered">
+    <div id="f" class="box has-background-warning-light content-sidebar" id="detail-column" style="width:70ch">
+        <div class="main-column content">
+            <h3>{{task.title}}</h3>
+            <p>{{task.description}}</p>
+            <br>
+            
+            {% if task.completed_date %}
+                {% language 'es' %}
+                Completada el {{task.completed_date}}
+                {% endlanguage %}
+            {% endif %}
+            
+        </div>
+        <div class="second-column buttons">
+        <br>
+        {% comment %} Si la tarea está completada va a tener completed_date, sino es Null. {% endcomment %}
+        {% if not task.completed_date %}
+                <a href="{% url 'tasks:complete' pk=task.pk%}"><button class="button is-success" >Completar</button></a>
+                <a href="{% url 'tasks:edit' pk=task.pk%}"><button class="button is-warning" >Modificar</button></a>    
+                <a href="{% url 'tasks:delete' pk=task.pk%}"><button class="button is-danger">Borrar</button></a>
+        {% else %}
+
+                <a href="{% url 'tasks:uncomplete' pk=task.pk%}"><button class="button is-link" >Anular completado</button></a>
+                <a href="{% url 'tasks:edit' pk=task.pk%}"><button class="button is-warning" >Modificar</button></a>    
+                <a href="{% url 'tasks:delete' pk=task.pk%}"><button class="button is-danger">Borrar</button></a>
+        
+
+        {% endif %}
+        </div>
+        
+    </div>
+</div>    
+
+{% endblock content %}
+
+
+

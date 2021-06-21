@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div id="preload" class="content  has-text-centered">
+     
+     <p></p>
+     
+    {% if tasks %}
+        
+        <h1 class="">Has llegado lejos, amig@...</h1>
+        <br>
+        {% for task in tasks %}
+        
+        <div class="field is-grouped is-grouped-centered">
+        <div class="box has-background-warning-light content-sidebar"  style="width:70ch">
+            <div id="tarea{{forloop.counter}}" class="main-column content">
+               
+                <h1 class="title"><a href="{% url 'tasks:task_detail' pk=task.pk%}">{{task.title|safe}}</a></h1>
+                <p>{{task.description|linebreaks|safe|truncatechars:180}}</p>
+            </div>
+
+            
+        </div>
+        </div>
+        <br>
+        
+        {% endfor %}
+        
+        
+    {% else %}
+        <h1>Aún no hay tareas completas!</h1>
+
+    {% endif %}
+
+    </div>
+
+
+{% endblock  %}

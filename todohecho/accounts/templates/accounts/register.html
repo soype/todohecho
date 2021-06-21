@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="field is-grouped is-grouped-centered">
+
+
+ <div class="box has-text-centered has-background-link-light" style="width:50ch;">
+   <div class="field has-text-centered">
+    <h1 class="title">Registro</h1>
+    </div>
+  <form action="" method="POST" class="form-group">
+          {% csrf_token %}       
+
+      <div class="field">
+        <label class="label">Usuario</label>
+        <div class="control has-icons-left has-icons-right">
+          <input class="input is-success" type="text" name="username" placeholder="Usuario" value="" required>
+          {% comment %} <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+          </span> {% endcomment %}
+          {% comment %} <span class="icon is-small is-right">
+            <i class="fas fa-check"></i>
+          </span> {% endcomment %}
+        </div>
+        {% comment %} <p class="help is-success">This username is available</p> {% endcomment %}
+      </div>
+
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control has-icons-left has-icons-right">
+          <input class="input is-link" type="email" name="email" placeholder="Email" value="" required>
+        </div>
+        {% comment %} <p class="help is-danger">This email is invalid</p> {% endcomment %}
+      </div>
+              
+      <div class="field">
+        <label class="label">Contraseña</label>
+        <div class="control has-icons-left has-icons-right">
+          <input class="input is-info" type="password" name="password1" placeholder="8 dígitos. Mínimo una letra y un número." value="" required>
+          {% comment %} <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+          </span> {% endcomment %}
+          {% comment %} <span class="icon is-small is-right">
+            <i class="fas fa-exclamation-triangle"></i>
+          </span> {% endcomment %}
+        </div>
+        {% comment %} <p class="help is-danger">This email is invalid</p> {% endcomment %}
+      </div>
+      <div class="field">
+        <div class="control has-icons-left has-icons-right">
+          <input class="input is-info" type="password" name="password2" placeholder="Repetí tu contraseña" value="" required>
+          {% comment %} <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+          </span> {% endcomment %}
+          {% comment %} <span class="icon is-small is-right">
+            <i class="fas fa-exclamation-triangle"></i>
+          </span> {% endcomment %}
+        </div>
+        {% comment %} <p class="help is-danger">This email is invalid</p> {% endcomment %}
+      </div>
+
+      {% for field in registration_form  %}
+      <p>
+      {% for error in field.errors %}
+      <p class="help is-danger">{{ error }}</p>
+      {% endfor %}
+      </p>
+      {% endfor %}
+      {% if registration_form.non_field_errors %}
+        <div>
+          <p>{{registration_form.non_field_errors}}</p>
+        </div>
+      {% endif %}
+      
+          <button type="subit" class="button is-success is-grouped-center">Registrarse</button>
+      
+  </form>
+ </div>
+</div>
+
+<div class="section">
+ <div class="field is-grouped is-grouped-centered">
+  <section class="box has-background-link">
+    <div class="hero-body is-align-self-center">
+      <p class="subtitle has-text-white-ter has-text-centered">
+        ToDo Hecho no informa tus datos a ninguna empresa u organización.
+      </p>
+    </div>
+    
+  </section>
+ </div>
+</div>
+
+{% endblock  %}

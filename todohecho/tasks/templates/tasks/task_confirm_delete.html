@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>¿Eliminar tarea?</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <a href="{% url 'tasks:task_detail' pk=task.pk %}"><button class="button is-warning">Cancelar</button></a>
+        <a href=""></a><button type="submit" class="button is-danger">Borrar</button>
+    </form> 
+
+{% endblock content %}
+

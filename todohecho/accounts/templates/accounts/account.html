@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% block style %}
+  <style>
+    .profile_pic{
+      {% comment %} width: 100%; {% endcomment %}
+      width: 10em;
+      height: 10em;
+      object-fit:cover;
+      border-radius: 50%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .flex-columns{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      
+    }
+    .column-item{
+      width: 50%;
+      margin: 0.5em;
+      margin-top: auto;
+      
+    }
+    .image-preview__image{
+      display:none;
+      object-fit:cover;
+    }
+    .profile-hide {
+      display: none;
+      width: 100%;
+      
+    }
+
+  </style>
+
+{% endblock style %}
+
+
+{% block content %}
+
+
+
+<div class="field is-grouped is-grouped-centered">
+
+
+  <div class="box has-background-link-light" style="width:40ch">
+    <div class="field has-text-centered">
+      <h1 class="title">{{ user.username }}</h1>
+      <p></p>
+    </div>
+    <br>
+    <div name="profile_pic" class="field has-text-centered current_image">
+      
+      
+      <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div>
+        
+        <div id="imagePreview">
+          
+          <label for="id_profile_image" for="id_profile_image">
+          <img src="" alt="Image Preview" class="profile_pic image-preview__image" id="preview">
+          <img class="profile_pic " src="{{request.user.profile_image.url}}"  id="profile_pic" alt="Click aquí para cargar foto de perfil">
+          </label>
+        </div>
+        <p></p>
+        <input type="file" name="profile_image" style="visibility:hidden;" accept="image/*" id="id_profile_image" placeholder="">
+        </div>
+        
+        <input type="submit" class="button is-info" value="Guardar">
+
+        
+      </form>
+      {% comment %} <img class="profile_pic" src="/media/{{user.profile_image}}" alt="">     {% endcomment %}
+    </div>
+
+
+
+    {% comment %} <div name="profile_pic" class="field has-text-centered current_image">
+      <div id="imagePreview">
+      <img class="profile_pic" src="{{request.user.profile_image.url}}"  alt=""> 
+      </div>
+      
+      <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div>
+        <br>
+        <label for="id_profile_image"class="button is-success" for="id_profile_image">Cambiar foto</label>
+        <p></p>
+        <input type="file" name="profile_image" style="visibility:hidden;" accept="image/*" id="id_profile_image" placeholder="">
+        </div>
+        
+        <input type="submit" class="button is-info" value="Guardar">
+
+        
+      </form>
+      {% comment %} <img class="profile_pic" src="/media/{{user.profile_image}}" alt="">     {% endcomment %}
+    
+    <div class="field has-text-centered">
+      <br>
+        <p>Email:</p>
+        <p>{{user.email}}</p>
+      <br>
+    </div>
+    <div class="field has-text-centered">
+      <p><a href="{% url 'accounts:password_change'%}">Cambiar contraseña</a></p>
+      {% if user.is_superuser %}
+      <br>
+
+        <p><a href="{% url 'admin:login'%}">Visualizar admin</a></p>
+      {% endif %}
+    </div>
+  </div> 
+
+<script>
+  if ( window.history.replaceState) {
+    window.history.replaceState( null, null, window.location.href);
+  }
+
+  const inpFile = document.getElementById("id_profile_image");
+  const previewContainer = document.getElementById("imagePreview");
+  const previewImage = previewContainer.querySelector("#preview");
+  const profileImage = previewContainer.querySelector("#profile_pic");
+
+  inpFile.addEventListener("change", function(){
+    const file = this.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      profileImage.style.display = "none";
+      previewImage.style.display = "block";
+
+      reader.addEventListener("load", function(){
+        previewImage.setAttribute("src", this.result);
+      });
+
+      reader.readAsDataURL(file);
+    }
+  });
+
+</script>
+
+{% endblock %}
+
+

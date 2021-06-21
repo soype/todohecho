@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="field is-grouped is-grouped-centered">
+
+
+ <div class="box has-text-centered has-background-link-light" style="width:50ch;">
+   <div class="field has-text-centered">
+    <h1 class="title">Ingreso</h1>
+   </div>
+  <form action="" method="POST" class="form-group">
+      {% csrf_token %}       
+
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control has-icons-left has-icons-right">
+          <input class="input is-link" type="email" name="email" placeholder="Email" value="" required>
+        </div>
+        {% comment %} <p class="help is-danger">This email is invalid</p> {% endcomment %}
+      </div>
+              
+      <div class="field">
+        <label class="label">Contraseña</label>
+        <div class="control has-icons-left has-icons-right">
+          <input class="input is-info" type="password" name="password" placeholder="8 dígitos. Mínimo una letra y un número." value="" required>
+      </div>
+      </div>
+      
+      <div class="field has-text-centered">
+        <p><a href="{% url 'accounts:password_reset' %}">¿Olvidaste tu contraseña?</a></p>
+      </div>
+
+      {% for field in login_form  %}
+      <p>
+      {% for error in field.errors %}
+      <p class="help is-danger">{{ error }}</p>
+      {% endfor %}
+      </p>
+      {% endfor %}
+      {% if login_form.non_field_errors %}
+      <div class="content help is-danger">
+        <p style="font-size:8px; color:red" >{{login_form.non_field_errors|safe}}</p>
+      </div>
+      
+      
+        
+      {% endif %}
+      
+        <button type="submit" class="button is-success is-grouped-center">Ingresar</button>
+      
+  </form>
+ </div>
+</div>
+
+
+
+
+
+{% endblock  %}

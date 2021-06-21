@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+<br>
+<div id="preload" class="field is-grouped is-grouped-centered preload">
+<div class="box has-background-warning-light content-sidebar" id="fade-4" id="detail-column" style="width:60ch">
+    <form action="" method="POST">
+        {% csrf_token %}
+
+    <div class="field">
+        <label class="label" >Tarea</label>
+        <div class="control" style="max-width: 60ch;">
+            <input class="input" type="text" placeholder="Título" for={{form.title}}
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label">Descripción</label>
+        <div class="control" style="max-width: 100ch;">
+        <input type="text" class="input" placeholder="Elaborá sobre tu tarea" for={{form.description|truncatechars:150}}
+            
+        </div>
+        
+    </div>
+
+    <div class="field">
+        <label class="label">Prioridad</label>
+        <div class="control">
+            <div class="select">
+            <select for={{form.priority_number}}
+                {% comment %} <option>Select dropdown</option>
+                <option>With options</option> {% endcomment %}
+            </select>
+            </div>
+        </div>
+    </div>
+    <input type="submit" class="button is-success" value="Guardar">
+</div>
+</div>        
+    
+        
+    </form>
+
+<script>
+setTimeout( function() {
+    fade_1(fade4)
+  }, 200)
+</script>
+
+{% endblock  %}

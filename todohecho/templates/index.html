@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+<div id="preload" class="preload">
+    <div class="container is-max-desktop has-text-centered">
+        <br>
+        <h1 class="title" id="fade-1">¿Andás necesitando organización?</h1>
+        <br>
+        <div class="field is-grouped is-grouped-centered">
+            <div id="fade-2" class="box has-background-link-light" style="width:60%">
+                <p>ToDo hecho te ayuda a ver tus tareas en orden de prioridad, para que puedas llevar adelante una vida más organizada y tranquila.</p>
+            </div>
+        </div>    
+        <br>
+        <div class="field is-grouped is-grouped-centered">
+            <div id="fade-3" class="box has-background-link-light content" style="width:30ch">
+                <h2 class="title_2">Empezar</h2>
+                <p>Creá tu cuenta o iniciá sesión</p>
+                <br>
+                <a href="{% url 'accounts:register'%}"><button class="button is-primary">Registrarse</button></a>
+                <br>
+                <br>
+                <a href="{% url 'accounts:login'%}"><button class="button is-success">Iniciar sesión</button></a>
+                <br>
+                <p><br></p>
+            </div>
+        </div>
+    </div>
+</div>    
+
+<script>
+
+  setTimeout( function() {
+    fade_1(fade1)
+    }, 1000)
+  setTimeout( function() {
+  fade_1(fade2)
+  }, 2500)
+  setTimeout( function() {
+  fade_1(fade3)
+  }, 6000)
+</script>
+
+{% endblock  %}
