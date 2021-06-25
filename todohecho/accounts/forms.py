@@ -106,7 +106,8 @@ class ChangePassword(ModelForm):
     old_password = forms.CharField(label="old_password", widget=PasswordInput)                
     password1 = forms.CharField(label="new_password1", widget=PasswordInput)                
     password2 = forms.CharField(label="new_password2", widget=PasswordInput)                
-
+    success_url = "accounts:password_change_done"
+    
     class Meta:
         model = Account
         fields = ['old_password','password1', 'password2']

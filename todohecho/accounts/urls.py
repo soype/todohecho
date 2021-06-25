@@ -1,5 +1,5 @@
 from todohecho.views import ThanksView
-from django.urls import path
+from django.urls import path, reverse_lazy
 from . import views
 from django.contrib.auth import views as auth_views
 from django.conf import settings
@@ -20,7 +20,7 @@ urlpatterns = [
     path("account/",views.view_user, name="user_detail"),
     
     #password change
-    path("password_change/",auth_views.PasswordChangeView.as_view(template_name='password_reset/password_change.html'), name="password_change"), 
+    path("password_change/",auth_views.PasswordChangeView.as_view(template_name='password_reset/password_change.html', success_url=reverse_lazy("accounts:password_change_done")), name="password_change"), 
     path("password_change/done/", auth_views.PasswordChangeDoneView.as_view(template_name='password_reset/password_change_done.html'), name="password_change_done"),
     #password reset
     path("password_reset/", views.PasswordResetView.as_view(template_name="password_reset/password_reset_form.html"),name="password_reset"),

@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic.edit import FormView
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth import views as auth_views 
+from django.contrib.auth import views as auth_views
 
 from urllib.parse import urlparse, urlunparse
 
@@ -40,7 +40,7 @@ UserModel = get_user_model()
 from .forms import LoginForm, RegisterForm, ChangeImage
 from .models import Account
 
-# Index:  Register line 
+# Index:  Register line
 #         Login / Logout = Register + 25
 #         Change pass = Register + 63
 
@@ -52,9 +52,9 @@ def view_user(request):
     form = ChangeImage(instance=user)
 
     if request.method == 'POST':
-        if request.FILES and request.user.profile_image != "logo_1080.png": 
+        if request.FILES and request.user.profile_image != "profile_images/logo_1080.png":
             Account.delete_image(request.user)
-        form = ChangeImage(request.POST, request.FILES, instance=user)          
+        form = ChangeImage(request.POST, request.FILES, instance=user)
         if form.is_valid:
             form.save()
 
@@ -72,7 +72,7 @@ def register_view(request,*args, **kwargs):
         if form.is_valid():
             form.save()
             email = form.cleaned_data.get('email').lower()
-            raw_password = form.cleaned_data.get('password1')  
+            raw_password = form.cleaned_data.get('password1')
             account = authenticate(email=email, password=raw_password)
             login(request,account)
             destination = get_redirect_if_exists(request)
@@ -85,21 +85,21 @@ def register_view(request,*args, **kwargs):
 
     return render(request, 'accounts/register.html',context)
 
-#Login / Logout    
-    
+#Login / Logout
+
 def logout_view(request):
     logout(request)
     return redirect('home')
 
 def login_view(request, *args, **kwargs):
-    
+
     context = {}
-    
+
     user = request.user
-    
+
     if user.is_authenticated:
         return redirect('tasks:tasks')
-    
+
     destination = get_redirect_if_exists(request)
 
     if request.POST:
@@ -116,7 +116,7 @@ def login_view(request, *args, **kwargs):
                 return redirect("tasks:tasks")
         else:
             context['login_form'] = form
-    
+
     return render(request, 'accounts/login.html',context)
 
 
@@ -126,11 +126,11 @@ def get_redirect_if_exists(request):
         if request.GET.get('next'):
             redirect = str(request.GET.get('next'))
     return redirect
-        
+
 # Change/Reset password
 
 def change_password(request):
-
+    
     return render(request,"password_reset/password_change.html")
 
 class PasswordContextMixin:
@@ -147,8 +147,8 @@ class PasswordContextMixin:
 class PasswordReset(auth_views.PasswordResetConfirmView):
     template_name = "password_reset/password_reset_confirm.html"
     reset_url_token = "password_reset_confirm"
-    
-    
+
+
 
     class Meta:
         fields = ['template_name','reset_url_token','title']
